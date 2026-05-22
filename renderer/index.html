@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'" />
+  <title>番茄钟</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="tasks-panel">
+      <div class="tasks-header">
+        <h2>待办</h2>
+        <button type="button" id="btn-toggle-tasks" class="btn-icon" title="折叠任务栏" aria-label="折叠">◀</button>
+      </div>
+      <form id="task-form" class="task-form">
+        <input type="text" id="task-input" placeholder="新任务…" maxlength="120" autocomplete="off" />
+        <button type="submit" class="btn btn-add" title="添加">+</button>
+      </form>
+      <p id="active-task-hint" class="active-hint">点击任务设为当前专注项</p>
+      <ul id="task-list" class="task-list" role="list"></ul>
+      <p id="task-empty" class="task-empty">暂无任务</p>
+    </aside>
+
+    <main class="timer-panel">
+      <header class="header">
+        <h1 class="logo">番茄钟</h1>
+        <p class="tagline">专注 · 短休 · 长休</p>
+      </header>
+
+      <div class="timer-body">
+        <section class="timer-center">
+          <nav class="mode-tabs" role="tablist">
+            <button type="button" class="mode-tab active" data-mode="work" role="tab" aria-selected="true">专注</button>
+            <button type="button" class="mode-tab" data-mode="short" role="tab">短休息</button>
+            <button type="button" class="mode-tab" data-mode="long" role="tab">长休息</button>
+          </nav>
+
+          <div class="timer-wrap">
+            <svg class="ring" viewBox="0 0 200 200" aria-hidden="true">
+              <circle class="ring-bg" cx="100" cy="100" r="88" />
+              <circle class="ring-progress" cx="100" cy="100" r="88" />
+            </svg>
+            <div class="timer-display">
+              <span id="time" class="time">25:00</span>
+              <span id="mode-label" class="mode-label">专注时间</span>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button type="button" id="btn-start" class="btn btn-primary">开始</button>
+            <button type="button" id="btn-pause" class="btn btn-secondary" hidden>暂停</button>
+            <button type="button" id="btn-reset" class="btn btn-ghost">重置</button>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <span class="stat-value" id="pomodoros">0</span>
+              <span class="stat-label">今日番茄</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="sessions">0</span>
+              <span class="stat-label">本轮循环</span>
+            </div>
+          </div>
+        </section>
+
+        <aside class="settings-panel">
+          <fieldset class="settings">
+            <legend>设置</legend>
+            <div class="settings-grid">
+              <label class="setting-row">
+                <span>专注</span>
+                <input type="number" id="work-min" min="1" max="120" value="25" />
+                <span class="unit">分</span>
+              </label>
+              <label class="setting-row">
+                <span>短休息</span>
+                <input type="number" id="short-min" min="1" max="60" value="5" />
+                <span class="unit">分</span>
+              </label>
+              <label class="setting-row">
+                <span>长休息</span>
+                <input type="number" id="long-min" min="1" max="60" value="15" />
+                <span class="unit">分</span>
+              </label>
+            </div>
+            <div class="settings-options">
+              <label class="setting-row checkbox">
+                <input type="checkbox" id="sound-on" checked />
+                <span>提示音</span>
+              </label>
+              <label class="setting-row checkbox">
+                <input type="checkbox" id="auto-next" checked />
+                <span>自动切换模式</span>
+              </label>
+            </div>
+          </fieldset>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
